@@ -1,0 +1,6 @@
+@import url('./fonts/pretendard.css');
+
+body {
+  font-family: 'Pretendard', 'Helvetica Neue', arial, sans-serif;
+  letter-spacing: -0.05em;
+}
