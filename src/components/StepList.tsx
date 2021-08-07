@@ -1,38 +1,36 @@
 import { x } from '@xstyled/emotion'
 import { FunctionalComponent } from 'preact'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
 import { Step } from '../model/step'
-import StepView from './StepView'
+import KeyStep from './step/KeyStep'
+import MouseButtonStep from './step/MouseButtonStep'
+import MouseMoveStep from './step/MouseMoveStep'
+import StepProps from './step/StepProps'
+import WaitStep from './step/WaitStep'
 
-export interface StepProps {
+export interface StepListProps {
   steps: [number, Step][]
   runningIndex: number | null
-  isDraggable?: boolean
-  onDelete?: (index: number) => void
-  onDrag: (drag: number, hover: number) => void
+  canDrag: boolean
+  onDelete: (index: number) => void
+  onMove: (drag: number, hover: number) => void
+  onChange: (index: number, step: Step) => void
 }
 
-const StepList: FunctionalComponent<StepProps> = (props) => {
-  const {
-    steps,
-    isDraggable,
-    onDelete: deleteStep,
-    onDrag,
-    runningIndex,
-  } = props
-  const stepViews = steps.map(([ts, step], i) => (
-    <StepView
-      key={ts}
-      draggable={isDraggable ?? true}
-      deleteView={deleteStep}
-      index={i}
-      step={step}
-      moveView={onDrag}
-      running={i === runningIndex}
-      hasArrow={i + 1 < steps.length}
-    />
-  ))
+const StepList: FunctionalComponent<StepListProps> = (props) => {
+  const { steps, runningIndex, canDrag, onDelete, onMove, onChange } = props
+
+  const stepViews = steps.map(([ts, step], i, a) =>
+    StepViewFactory(step, {
+      key: ts,
+      index: i,
+      isRunning: i === runningIndex,
+      canDrag,
+      hasArrow: i + 1 < a.length,
+      onDelete,
+      onMove,
+      onChange,
+    })
+  )
 
   return (
     <x.ol
@@ -42,9 +40,31 @@ const StepList: FunctionalComponent<StepProps> = (props) => {
       padding={5}
       fontSize="md"
     >
-      <DndProvider backend={HTML5Backend}>{stepViews}</DndProvider>
+      {stepViews}
     </x.ol>
   )
+}
+
+const StepViewFactory = (
+  step: Step,
+  props: Omit<StepProps<never>, 'step'> & { key: any }
+) => {
+  switch (step.type) {
+    case 'mouseMove':
+      return <MouseMoveStep step={step} {...props} />
+    case 'mousePress':
+    case 'mouseRelease':
+    case 'mouseClick':
+      return <MouseButtonStep step={step} {...props} />
+    case 'keyPress':
+    case 'keyRelease':
+    case 'keyClick':
+      return <KeyStep step={step} {...props} />
+    case 'wait':
+      return <WaitStep step={step} {...props} />
+    default:
+      return
+  }
 }
 
 export default StepList

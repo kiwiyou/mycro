@@ -1,2 +1,4 @@
 src/fonts
 src-tauri
+dist
+.husky

@@ -1,9 +1,13 @@
 import { Key } from '../input'
 import { Step } from './step'
 
-export interface KeyStep extends Step {
+interface KeyStep extends Step {
   key: Key
 }
+
+type ConcreteKeyStep = KeyDownStep | KeyReleaseStep | KeyPressStep
+
+export type { ConcreteKeyStep as KeyStep }
 
 export interface KeyDownStep extends KeyStep {
   type: 'keyPress'

@@ -3,7 +3,7 @@
   windows_subsystem = "windows"
 )]
 
-use std::{sync::{Arc, Mutex, mpsc::{SyncSender, sync_channel}}, time::Duration};
+use std::sync::{Arc, Mutex, mpsc::{SyncSender, sync_channel}};
 
 use step::Step;
 use tfc::Context;

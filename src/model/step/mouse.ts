@@ -7,9 +7,13 @@ export interface MouseMoveStep extends Step {
   y: number
 }
 
-export interface MouseButtonStep extends Step {
+interface MouseButtonStep extends Step {
   button: MouseButton
 }
+
+type ConcreteMouseButtonStep = MouseDownStep | MouseReleaseStep | MouseClickStep
+
+export type { ConcreteMouseButtonStep as MouseButtonStep }
 
 export interface MouseDownStep extends MouseButtonStep {
   type: 'mousePress'

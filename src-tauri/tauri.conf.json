@@ -49,7 +49,10 @@
       "active": false
     },
     "allowlist": {
-      "all": true
+      "all": false,
+      "globalShortcut": {
+        "all": true
+      }
     },
     "windows": [
       {

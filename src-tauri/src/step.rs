@@ -22,7 +22,7 @@ impl Step {
       Self::MouseButton(mouse) => mouse.run(ctx),
       Self::Key(key) => key.run(ctx),
       Self::Wait { time } => {
-        let duration = std::time::Duration::from_millis(*time as u64);
+        let duration = std::time::Duration::from_secs_f64(*time);
         std::thread::sleep(duration);
       }
     }
