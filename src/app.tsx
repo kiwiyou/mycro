@@ -111,20 +111,18 @@ export function App() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <DndProvider backend={TouchBackend}>
-        <ThemeProvider theme={theme}>
-          <Preflight />
-          <StepList
-            steps={steps}
-            canDrag={!started}
-            runningIndex={runningStep}
-            onDelete={deleteStep}
-            onMove={moveStep}
-            onChange={changeStep}
-          />
-          <Nav onStepAdd={addStep} />
-        </ThemeProvider>
-      </DndProvider>
+      <ThemeProvider theme={theme}>
+        <Preflight />
+        <StepList
+          steps={steps}
+          canDrag={!started}
+          runningIndex={runningStep}
+          onDelete={deleteStep}
+          onMove={moveStep}
+          onChange={changeStep}
+        />
+        <Nav onStepAdd={addStep} />
+      </ThemeProvider>
     </DndProvider>
   )
 }

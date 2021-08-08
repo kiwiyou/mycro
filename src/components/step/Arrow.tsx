@@ -1,5 +1,5 @@
 import { FillProps, StrokeProps, x } from '@xstyled/emotion'
-import { FunctionalComponent, RefObject } from 'preact'
+import { FunctionalComponent } from 'preact'
 
 export interface ArrowProps extends FillProps, StrokeProps {
   height: string | number
@@ -9,6 +9,7 @@ const Arrow: FunctionalComponent<ArrowProps> = (props) => {
   const { height, fill, stroke } = props
   return (
     <x.div
+      gridArea="auto / 2 / auto / 2"
       display="flex"
       flexDirection="column"
       alignItems="center"

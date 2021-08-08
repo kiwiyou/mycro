@@ -1,6 +1,5 @@
 import { RefObject } from 'preact'
 import { DragSourceMonitor, DropTargetMonitor, XYCoord } from 'react-dnd'
-import { Step } from '../../model/step'
 
 export interface DragProps {
   index: number
